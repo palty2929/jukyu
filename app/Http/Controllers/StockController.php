@@ -12,8 +12,6 @@ use Carbon\CarbonPeriod;
 
 class StockController extends Controller
 {
-
-
     public function index(Request $request)
     {
         $bgs = Bg::where('is_jbu',false)

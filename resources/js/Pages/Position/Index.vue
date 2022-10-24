@@ -5,26 +5,25 @@ import { Inertia } from '@inertiajs/inertia'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
-    bgs: Object,
-    month: String
+    positions:Object
 })
 </script>
 
 <template>
-    <Head title="相対ストック" />
+    <Head title="ポジション" />
     <Layout>
         <div class="flex justify-between items-start">
-            <div class="text-3xl font-bold">相対ストック</div>
+            <div class="text-3xl font-bold">ポジション</div>
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <template v-if="bgs.length">
+            <template v-if="positions.length">
                 <div class="border-b"></div>
                 <div class="flex flex-col">
-                    <template v-for="bg in bgs" :key="bg.id">
+                    <template v-for="position in positions" :key="position.id">
                         <div class="border-b hover:bg-base-300">
                             <Link
-                                :href="route('stock.show', bg.uuid)"
+                                :href="route('position.show', position.uuid)"
                                 class="flex items-center gap-4 py-2 px-4"
                             >
                                 <div class="w-36">{{ bg.supplier.disp_name }}</div>

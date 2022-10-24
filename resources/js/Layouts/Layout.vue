@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         <!-- header -->
         <div class="flex justify-between items-center bg-base-100 py-2 px-4">
             <div class="shrink-0 w-52">
-                <h1 class="text-xl font-bold">需給管理システム</h1>
+                <h1 class="text-xl font-bold">{{$page.props.app.name}}</h1>
             </div>
         </div>
 

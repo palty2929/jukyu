@@ -56,8 +56,8 @@ const areaString = computed(() => (value) => {
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <div class="border-b"></div>
             <template v-if="areas.data.length">
+            <div class="border-b"></div>            
                 <div class="flex flex-col">
                     <template v-for="area in areas.data" :key="area.id">
                         <MasterIndexListItem
@@ -73,6 +73,9 @@ const areaString = computed(() => (value) => {
                         </MasterIndexListItem>
                     </template>
                 </div>
+            </template>
+            <template v-else>
+                <p>登録がありません</p>
             </template>
         </div>
     </Layout>

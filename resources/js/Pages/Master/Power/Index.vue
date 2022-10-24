@@ -42,8 +42,8 @@ const typeString = computed(() => (value) => {
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <div class="border-b"></div>
             <template v-if="powers.data.length">
+                <div class="border-b"></div>
                 <div class="flex flex-col">
                     <template v-for="power in powers.data" :key="power.id">
                         <MasterIndexListItem
@@ -62,6 +62,9 @@ const typeString = computed(() => (value) => {
                     </template>
                 </div>
                 <MasterIndexPagenation :items="powers" />
+            </template>
+            <template v-else>
+                <p>登録がありません</p>
             </template>
         </div>
     </Layout>

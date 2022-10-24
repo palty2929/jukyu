@@ -30,8 +30,8 @@ function deleteItem(uuid) {
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <div class="border-b"></div>
             <template v-if="suppliers.data.length">
+            <div class="border-b"></div>            
                 <div class="flex flex-col">
                     <template v-for="supplier in suppliers.data" :key="supplier.id">
                         <MasterIndexListItem
@@ -46,6 +46,9 @@ function deleteItem(uuid) {
                     </template>
                 </div>
                 <MasterIndexPagenation :items="suppliers" />
+            </template>
+            <template v-else>
+                <p>登録がありません</p>
             </template>
         </div>
     </Layout>

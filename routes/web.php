@@ -2,10 +2,15 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\BgController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateController;
+use App\Http\Controllers\OperationController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PowerController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,35 +26,50 @@ use Inertia\Inertia;
 |
 */
 
-Route::get("/", function () {
-    return Inertia::render("Welcome", [
-        "canLogin" => Route::has("login"),
-        "canRegister" => Route::has("register"),
-        "laravelVersion" => Application::VERSION,
-        "phpVersion" => PHP_VERSION,
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
     ]);
 });
 
-Route::get("/dashboard", function () {
-    return Inertia::render("Dashboard");
-})
-    ->middleware(["auth", "verified"])
-    ->name("dashboard");
+Route::group(['middleware' => 'auth'], function () {
+    // Admin
+    Route::group(['middleware' => 'can:admin'], function () {
+        Route::get('/user', [UserController::class, 'index'])->name('user.index');
+        Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
+    });
 
-Route::middleware(["auth", "verified"])->group(function () {
-    // マスタ関連
-    Route::resource("/supplier", SupplierController::class);
-    Route::resource("/area", AreaController::class);
-    Route::resource("/bg", BgController::class);
-    Route::resource("/power", PowerController::class);
+    // Master
+    Route::group(['middleware' => 'can:master'], function () {
+        Route::resource('/supplier', SupplierController::class);
+        Route::resource('/area', AreaController::class);
+        Route::resource('/bg', BgController::class);
+        Route::resource('/power', PowerController::class);
+    });
 
-    // ストック関連
-    Route::get("/stock", [StockController::class, "index"])->name("stock.index");
-    Route::get("/stock/{bg}", [StockController::class, "show"])->name("stock.show");
-    Route::post("/stock/{bg}/store", [StockController::class, "store"])->name("stock.store");
-    Route::get("/generate", [GenerateController::class, "index"])->name("generate.index");
-    Route::get("/generate/{power}", [GenerateController::class, "show"])->name("generate.show");
-    Route::post("/generate/{power}/store", [GenerateController::class, "store"])->name("generate.store");
+    // Stock
+    Route::group(['middleware' => 'can:stock'], function () {
+        Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
+        Route::get('/stock/{bg}', [StockController::class, 'show'])->name('stock.show');
+        Route::post('/stock/{bg}/store', [StockController::class, 'store'])->name('stock.store');
+
+        Route::get('/generate', [GenerateController::class, 'index'])->name('generate.index');
+        Route::get('/generate/{power}', [GenerateController::class, 'show'])->name('generate.show');
+        Route::post('/generate/{power}/store', [GenerateController::class, 'store'])->name('generate.store');
+    });
+
+    // Operator
+    Route::group(['middleware' => 'can:operator'], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/operation', [OperationController::class, 'index'])->name('operation.index');
+    });
+
+    Route::group(['middleware' => 'can:user'], function () {
+        Route::get('/position', [PositionController::class, 'index'])->name('position.index');
+    });
 });
 
-require __DIR__ . "/auth.php";
+require __DIR__ . '/auth.php';

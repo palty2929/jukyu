@@ -56,8 +56,8 @@ const areaString = computed(() => (value) => {
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <div class="border-b"></div>
             <template v-if="bgs.data.length">
+            <div class="border-b"></div>            
                 <div class="flex flex-col">
                     <template v-for="bg in bgs.data" :key="bg.id">
                         <MasterIndexListItem @deleteEmit="deleteItem" :href="route('bg.edit', bg.uuid)" :item="bg">
@@ -73,6 +73,9 @@ const areaString = computed(() => (value) => {
                     </template>
                 </div>
                 <MasterIndexPagenation :items="bgs" />
+            </template>
+            <template v-else>
+                <p>登録がありません</p>
             </template>
         </div>
     </Layout>
