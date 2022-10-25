@@ -55,6 +55,7 @@ const areas = {
     <Head title="エリアマスタの編集" />
 
     <Layout>
+        {{form.errors}}
         <div class="flex justify-between items-start">
             <div class="text-3xl font-bold">エリアマスタの編集</div>
         </div>

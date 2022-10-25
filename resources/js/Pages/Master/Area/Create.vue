@@ -111,7 +111,7 @@ const areas = {
                         </div>
                     </div>
                 </div>
-
+{{form.errors}}
                 <div class="flex justify-end items-center border-t mt-8 pt-8">
                     <button type="submit" class="btn btn-primary no-animation">保存する</button>
                 </div>

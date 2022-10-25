@@ -136,4 +136,11 @@ import { Link } from '@inertiajs/inertia-vue3'
             </div>
         </Link>
     </div>
+
+    <div class="pb-4 mb-4">
+        <button type="button" @click="logout" class="flex items-center h-10 px-4 gap-4 hover:bg-base-300">
+            <i class="material-symbols-outlined">logout</i>
+            <span class="text-sm w-full">ログアウト</span>
+        </button>
+    </div>
 </template>

@@ -17,53 +17,50 @@ const props = defineProps({
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
-            <template v-if="users">
-                <div class="flex flex-col">
-                    <table class="table table-zebra table-compact w-full">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>権限</th>
-                                <th>名前</th>
-                                <th>メールアドレス</th>
-                                <th>作成日時</th>
-                                <th>更新日時</th>
-                                <th>削除日時</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="user in users" :key="user.id">
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.roll }}</td>
-                                <td :class="{ 'line-through': user.deleted_at }">{{ user.name }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.created_at }}</td>
-                                <td>{{ user.updated_at }}</td>
-                                <td>{{ user.deleted_at }}</td>
-                                <td>
-                                    <Link
-                                        :href="route('user.edit', user.id)"
-                                        class="flex justify-between items-center grow py-3"
-                                        >編集</Link
-                                    >
-                                </td>
-                                <td>
-                                    <button
-                                        type="button"
-                                        @click="deleteEmit(item.uuid)"
-                                        class="btn btn-link btn-sm text-error no-animation"
-                                    >
-                                        削除
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </template>
-            <p v-else>ユーザーの登録がありません</p>
+            <div class="flex flex-col">
+                <table class="table table-zebra table-compact w-full">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>権限</th>
+                            <th>名前</th>
+                            <th>メールアドレス</th>
+                            <th>作成日時</th>
+                            <th>更新日時</th>
+                            <th>削除日時</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="user in users" :key="user.id">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.roll }}</td>
+                            <td :class="{ 'line-through': user.deleted_at }">{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.created_at }}</td>
+                            <td>{{ user.updated_at }}</td>
+                            <td>{{ user.deleted_at }}</td>
+                            <td>
+                                <Link
+                                    :href="route('user.edit', user.id)"
+                                    class="flex justify-between items-center grow py-3"
+                                    >編集</Link
+                                >
+                            </td>
+                            <td>
+                                <button
+                                    type="button"
+                                    @click="deleteEmit(item.uuid)"
+                                    class="btn btn-link btn-sm text-error no-animation"
+                                >
+                                    削除
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </Layout>
 </template>
