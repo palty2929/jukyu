@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\BgController;
 use App\Http\Controllers\DashboardController;
@@ -36,39 +36,40 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    // Admin
     Route::group(['middleware' => 'can:admin'], function () {
-        Route::get('/user', [UserController::class, 'index'])->name('user.index');
-        Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
+        Route::get('user', [UserController::class, 'index'])->name('user.index');
+        Route::get('user/create', [RegisteredUserController::class, 'create'])->name('user.create');
+        Route::post('user', [RegisteredUserController::class, 'store'])->name('user.store');
+        Route::get('user/{user}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+        Route::get('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
     });
 
-    // Master
     Route::group(['middleware' => 'can:master'], function () {
-        Route::resource('/supplier', SupplierController::class);
-        Route::resource('/area', AreaController::class);
-        Route::resource('/bg', BgController::class);
-        Route::resource('/power', PowerController::class);
+        Route::resource('supplier', SupplierController::class);
+        Route::resource('area', AreaController::class);
+        Route::resource('bg', BgController::class);
+        Route::resource('power', PowerController::class);
     });
 
-    // Stock
     Route::group(['middleware' => 'can:stock'], function () {
-        Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
-        Route::get('/stock/{bg}', [StockController::class, 'show'])->name('stock.show');
-        Route::post('/stock/{bg}/store', [StockController::class, 'store'])->name('stock.store');
+        Route::get('stock', [StockController::class, 'index'])->name('stock.index');
+        Route::get('stock/{bg}', [StockController::class, 'show'])->name('stock.show');
+        Route::post('stock/{bg}/store', [StockController::class, 'store'])->name('stock.store');
 
-        Route::get('/generate', [GenerateController::class, 'index'])->name('generate.index');
-        Route::get('/generate/{power}', [GenerateController::class, 'show'])->name('generate.show');
-        Route::post('/generate/{power}/store', [GenerateController::class, 'store'])->name('generate.store');
+        Route::get('generate', [GenerateController::class, 'index'])->name('generate.index');
+        Route::get('generate/{power}', [GenerateController::class, 'show'])->name('generate.show');
+        Route::post('generate/{power}/store', [GenerateController::class, 'store'])->name('generate.store');
     });
 
-    // Operator
     Route::group(['middleware' => 'can:operator'], function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/operation', [OperationController::class, 'index'])->name('operation.index');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('operation', [OperationController::class, 'index'])->name('operation.index');
     });
 
     Route::group(['middleware' => 'can:user'], function () {
-        Route::get('/position', [PositionController::class, 'index'])->name('position.index');
+        Route::get('position', [PositionController::class, 'index'])->name('position.index');
     });
 });
 

@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 </script>
 
 <template>
-    <div class="mt-4">
+    <div v-if="$page.props.auth.user.roll < 10" class="my-4 border-b pb-4">
         <!-- <Link :href="route('dashboard')">
             <div
                 class="flex items-center h-10 px-4 gap-4 hover:bg-base-300"
@@ -25,7 +25,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         </Link>
     </div>
 
-    <div class="border-t pt-4 mt-4">
+    <div v-if="$page.props.auth.user.roll < 20" class="border-b pb-4 mb-4">
         <span class="text-xs px-4">マスタ権限 Roll:10～19</span>
         <Link :href="route('supplier.index')">
             <div
@@ -68,7 +68,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         </Link>
     </div>
 
-    <div class="border-t pt-4 mt-4">
+    <div v-if="$page.props.auth.user.roll < 30" class="border-b pb-4 mb-4">
         <span class="text-xs px-4">ストック権限 Roll:20～29</span>
         <Link :href="route('stock.index')">
             <div
@@ -89,9 +89,9 @@ import { Link } from '@inertiajs/inertia-vue3'
                 <span class="text-sm w-full">発電ストック</span>
             </div>
         </Link>
-    </div>    
+    </div>
 
-    <div class="border-t pt-4 mt-4">
+    <div v-if="$page.props.auth.user.roll < 40" class="border-b pb-4 mb-4">
         <span class="text-xs px-4">オペ権限 Roll:30～39</span>
         <Link :href="route('operation.index')">
             <div
@@ -124,7 +124,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         </Link>
     </div>
 
-    <div class="border-t pt-4 mt-4">
+    <div class="border-b pb-4 mb-4">
         <span class="text-xs px-4">閲覧のみ権限 Roll:40～49</span>
         <Link :href="route('position.index')">
             <div

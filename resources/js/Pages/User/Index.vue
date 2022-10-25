@@ -10,44 +10,57 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head title="ポジション" />
+    <Head title="ユーザー管理" />
     <Layout>
         <div class="flex justify-between items-start">
-            <div class="text-3xl font-bold">ポジション</div>
+            <div class="text-3xl font-bold">ユーザー管理</div>
         </div>
 
         <div class="mt-12 bg-base-100 p-8">
             <template v-if="users">
-                <div class="border-b"></div>
                 <div class="flex flex-col">
-                    <template v-for="user in users" :key="user.id">
-                        <div class="flex justify-between items-center gap-4 border-b px-4 hover:bg-base-200">
-                            <Link
-                                :href="route('user.show', user.id)"
-                                class="flex justify-between items-center grow py-3"
-                            >
-                                <div class="grow flex justify-between items-center gap-8">
-                                    <div class="flex items-center gap-6">
-                                        <div class="">{{ user.id }}</div>
-                                        <div class="">{{ user.roll }}</div>
-                                        <div class="">{{ user.name }}</div>
-                                        <div class="">{{ user.email }}</div>
-                                        <div class="">{{ user.created_at }}</div>
-                                        <div class="">{{ user.deleted_at }}</div>
-                                    </div>
-                                </div>
-                            </Link>
-                            <div class="grow-0">
-                                <button
-                                    type="button"
-                                    @click="deleteEmit(item.uuid)"
-                                    class="btn btn-link btn-sm text-error no-animation"
-                                >
-                                    削除
-                                </button>
-                            </div>
-                        </div>
-                    </template>
+                    <table class="table table-zebra table-compact w-full">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>権限</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <th>作成日時</th>
+                                <th>更新日時</th>
+                                <th>削除日時</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in users" :key="user.id">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.roll }}</td>
+                                <td :class="{ 'line-through': user.deleted_at }">{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.created_at }}</td>
+                                <td>{{ user.updated_at }}</td>
+                                <td>{{ user.deleted_at }}</td>
+                                <td>
+                                    <Link
+                                        :href="route('user.edit', user.id)"
+                                        class="flex justify-between items-center grow py-3"
+                                        >編集</Link
+                                    >
+                                </td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        @click="deleteEmit(item.uuid)"
+                                        class="btn btn-link btn-sm text-error no-animation"
+                                    >
+                                        削除
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </template>
             <p v-else>ユーザーの登録がありません</p>

@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         <!-- header -->
         <div class="flex justify-between items-center bg-base-100 py-2 px-4">
             <div class="shrink-0 w-52">
-                <h1 class="text-xl font-bold">{{$page.props.app.name}}</h1>
+                <h1 class="text-xl font-bold">{{ $page.props.app.name }}</h1>
             </div>
         </div>
 
@@ -16,7 +16,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         <div class="grow bg-base-100 border-t">
             <div class="flex h-full">
                 <!-- Sidebar -->
-                <div class="shrink-0 w-52 pr-4 border-r">
+                <div class="shrink-0 w-52 pr-4 border-r top-0 sticky">
                     <SidebarList />
                 </div>
                 <!-- Main -->
