@@ -29,7 +29,7 @@ function deleteItem(uuid) {
             <Link :href="route('supplier.create')" class="btn btn-primary no-animation">マスタの作成</Link>
         </div>
 
-        <div class="mt-12 bg-base-100 p-8">
+        <div class="mt-12 bg-base-100">
             <template v-if="suppliers.data.length">
             <div class="border-b"></div>            
                 <div class="flex flex-col">

@@ -63,12 +63,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('generate/{power}/store', [GenerateController::class, 'store'])->name('generate.store');
     });
 
-    Route::group(['middleware' => 'can:operator'], function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::group(['middleware' => 'can:operator'], function () {        
         Route::get('operation', [OperationController::class, 'index'])->name('operation.index');
     });
 
     Route::group(['middleware' => 'can:user'], function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('position', [PositionController::class, 'index'])->name('position.index');
     });
 });
