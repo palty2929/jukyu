@@ -1,5 +1,5 @@
 <script setup>
-import Layout from '@/Layouts/Layout.vue'
+import MainColumn from '@/Layouts/MainColumn.vue'
 import MasterIndexListItem from '@/Components/MasterIndexListItem.vue'
 import MasterIndexPagenation from '@/Components/MasterIndexPagenation.vue'
 import { Inertia } from '@inertiajs/inertia'
@@ -23,15 +23,15 @@ function deleteItem(uuid) {
 
 <template>
     <Head title="PPSマスタ" />
-    <Layout>
-        <div class="flex justify-between items-start">
-            <div class="text-3xl font-bold">PPSマスタ</div>
+    <MainColumn>
+        <template #title>PPSマスタ</template>
+        <template #action>
             <Link :href="route('supplier.create')" class="btn btn-primary no-animation">マスタの作成</Link>
-        </div>
+        </template>
 
-        <div class="mt-12 bg-base-100">
+        <template #main>
             <template v-if="suppliers.data.length">
-            <div class="border-b"></div>            
+                <div class="border-b"></div>
                 <div class="flex flex-col">
                     <template v-for="supplier in suppliers.data" :key="supplier.id">
                         <MasterIndexListItem
@@ -50,6 +50,6 @@ function deleteItem(uuid) {
             <template v-else>
                 <p>登録がありません</p>
             </template>
-        </div>
-    </Layout>
+        </template>
+    </MainColumn>
 </template>

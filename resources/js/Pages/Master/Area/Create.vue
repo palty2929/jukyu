@@ -1,5 +1,5 @@
 <script setup>
-import Layout from '@/Layouts/Layout.vue'
+import MainColumn from '@/Layouts/MainColumn.vue'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 import { useToast } from 'vue-toastification'
 const toast = useToast()
@@ -43,12 +43,10 @@ const areas = {
 <template>
     <Head title="エリアマスタの作成" />
 
-    <Layout>
-        <div class="flex justify-between items-start">
-            <div class="text-3xl font-bold">エリアマスタの作成</div>
-        </div>
+    <MainColumn>
+        <template #title>エリアマスタの作成</template>
 
-        <div class="bg-base-100 w-[800px] px-8 py-6 mt-8">
+        <template #main>
             <form @submit.prevent="submit">
                 <div class="flex border-b mb-8 pb-8">
                     <div class="w-1/2">マスタの有効期限</div>
@@ -111,11 +109,11 @@ const areas = {
                         </div>
                     </div>
                 </div>
-{{form.errors}}
+
                 <div class="flex justify-end items-center border-t mt-8 pt-8">
                     <button type="submit" class="btn btn-primary no-animation">保存する</button>
                 </div>
             </form>
-        </div>
-    </Layout>
+        </template>
+    </MainColumn>
 </template>

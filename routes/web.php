@@ -35,11 +35,14 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('user/create', [RegisteredUserController::class, 'create'])->name('user.create');
+Route::post('user', [RegisteredUserController::class, 'store'])->name('user.store');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'can:admin'], function () {
         Route::get('user', [UserController::class, 'index'])->name('user.index');
-        Route::get('user/create', [RegisteredUserController::class, 'create'])->name('user.create');
-        Route::post('user', [RegisteredUserController::class, 'store'])->name('user.store');
+        // Route::get('user/create', [RegisteredUserController::class, 'create'])->name('user.create');
+        // Route::post('user', [RegisteredUserController::class, 'store'])->name('user.store');
         Route::get('user/{user}', [UserController::class, 'edit'])->name('user.edit');
         Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
         Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
@@ -63,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('generate/{power}/store', [GenerateController::class, 'store'])->name('generate.store');
     });
 
-    Route::group(['middleware' => 'can:operator'], function () {        
+    Route::group(['middleware' => 'can:operator'], function () {
         Route::get('operation', [OperationController::class, 'index'])->name('operation.index');
     });
 

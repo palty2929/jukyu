@@ -1,5 +1,5 @@
 <script setup>
-import Layout from '@/Layouts/Layout.vue'
+import MainColumn from '@/Layouts/MainColumn.vue'
 import MasterIndexListItem from '@/Components/MasterIndexListItem.vue'
 import MasterIndexPagenation from '@/Components/MasterIndexPagenation.vue'
 import { computed } from 'vue'
@@ -35,13 +35,13 @@ const typeString = computed(() => (value) => {
 
 <template>
     <Head title="電源マスタ" />
-    <Layout>
-        <div class="flex justify-between items-start">
-            <div class="text-3xl font-bold">電源マスタ</div>
+    <MainColumn>
+        <template #title>電源マスタ</template>
+        <template #action>
             <Link :href="route('power.create')" class="btn btn-primary no-animation">マスタの作成</Link>
-        </div>
+        </template>
 
-        <div class="mt-12 bg-base-100 p-8">
+        <template #main>
             <template v-if="powers.data.length">
                 <div class="border-b"></div>
                 <div class="flex flex-col">
@@ -66,6 +66,6 @@ const typeString = computed(() => (value) => {
             <template v-else>
                 <p>登録がありません</p>
             </template>
-        </div>
-    </Layout>
+        </template>
+    </MainColumn>
 </template>
