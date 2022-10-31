@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -37,4 +38,19 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i');
+    }
+
+    public function getDeletedAtAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i') : '';
+    }
 }

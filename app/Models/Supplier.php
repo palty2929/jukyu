@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Askedio\SoftCascade\Traits\SoftCascadeTrait;
+use Carbon\Carbon;
 
 class Supplier extends Model
 {
@@ -38,6 +39,25 @@ class Supplier extends Model
     public function powers()
     {
         return $this->hasMany(Power::class);
+    }
+
+
+    //=============================================================
+    // アクセサ
+    //=============================================================
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i');
+    }
+
+    public function getDeletedAtAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y/m/d H:i') : '';
     }
 
     //=============================================================

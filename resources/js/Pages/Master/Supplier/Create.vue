@@ -28,6 +28,7 @@ const submit = () => {
         <template #title>PPSマスタの作成</template>
 
         <template #main>
+            {{ form.errors }}
             <form @submit.prevent="submit">
                 <div class="flex border-b mb-8 pb-8">
                     <div class="w-1/2">マスタの有効期限</div>

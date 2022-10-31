@@ -15,7 +15,7 @@ class UserController extends Controller
         $users = User::withTrashed()
             ->orderBy('id', 'desc')
             ->orderBy('roll', 'asc')
-            ->get();
+            ->paginate(20);
 
         return Inertia::render('User/Index', [
             'users' => $users,

@@ -1,7 +1,7 @@
 <script setup>
 import MainColumn from '@/Layouts/MainColumn.vue'
-import MasterIndexListItem from '@/Components/MasterIndexListItem.vue'
-import MasterIndexPagenation from '@/Components/MasterIndexPagenation.vue'
+import Table from '@/Components/Table.vue'
+import Paginate from '@/Components/Paginate.vue'
 import { Inertia } from '@inertiajs/inertia'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import { useToast } from 'vue-toastification'
@@ -31,21 +31,31 @@ function deleteItem(uuid) {
 
         <template #main>
             <template v-if="suppliers.data.length">
-                <div class="border-b"></div>
-                <div class="flex flex-col">
-                    <template v-for="supplier in suppliers.data" :key="supplier.id">
-                        <MasterIndexListItem
-                            @deleteEmit="deleteItem"
-                            :href="route('supplier.edit', supplier.uuid)"
-                            :item="supplier"
-                        >
-                            <div>{{ supplier.pps_code }}</div>
-                            <div class="w-96 truncate">{{ supplier.name }}</div>
-                            <div>{{ supplier.disp_name }}</div>
-                        </MasterIndexListItem>
+                <Table>
+                    <template #header>
+                        <th>PPSコード</th>
+                        <th>正式名称</th>
+                        <th>システム表示名</th>
+                        <th>開始日</th>
+                        <th>終了日</th>
+                        <th>削除日時</th>
+                        <th></th>
                     </template>
-                </div>
-                <MasterIndexPagenation :items="suppliers" />
+                    <template #body>
+                        <tr v-for="supplier in suppliers.data" :key="supplier.id" class="hover">
+                            <td>{{ supplier.pps_code }}</td>
+                            <td>{{ supplier.name }}</td>
+                            <td>{{ supplier.disp_name }}</td>
+                            <td>{{ supplier.start_on }}</td>
+                            <td>{{ supplier.end_on }}</td>
+                            <td>{{ supplier.deleted_at }}</td>
+                            <td>
+                                <Link :href="route('supplier.edit', supplier.uuid)" class="link link-primary no-underline">編集</Link>
+                            </td>
+                        </tr>
+                    </template>
+                </Table>
+                <Paginate :items="suppliers" />
             </template>
             <template v-else>
                 <p>登録がありません</p>

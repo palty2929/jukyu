@@ -6,12 +6,15 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class SupplierController extends Controller
 {
     public function index()
     {
-        $supplier = Supplier::paginate(20);
+        $supplier = Supplier::withTrashed()
+        ->orderBy('pps_code','asc')
+        ->paginate(20);
 
         return Inertia::render("Master/Supplier/Index", [
             "suppliers" => $supplier,
@@ -31,7 +34,7 @@ class SupplierController extends Controller
         $validate = $request->validate([
             "start_on" => ["date", "required"],
             "end_on" => ["date", "after:start_on", "nullable"],
-            "pps_code" => ["integer", "digits:4", "required"],
+            "pps_code" => ["required", "integer", "digits:4", Rule::unique('suppliers', 'pps_code')->whereNull('deleted_at')],
             "name" => ["max:30", "required"],
             "disp_name" => ["max:20", "required"],
             "uuid" => ["uuid", "required"],

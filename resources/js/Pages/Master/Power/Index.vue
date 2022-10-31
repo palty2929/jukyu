@@ -1,7 +1,7 @@
 <script setup>
 import MainColumn from '@/Layouts/MainColumn.vue'
 import MasterIndexListItem from '@/Components/MasterIndexListItem.vue'
-import MasterIndexPagenation from '@/Components/MasterIndexPagenation.vue'
+import Paginate from '@/Components/Paginate.vue'
 import { computed } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { Head, Link } from '@inertiajs/inertia-vue3'
@@ -61,7 +61,7 @@ const typeString = computed(() => (value) => {
                         </MasterIndexListItem>
                     </template>
                 </div>
-                <MasterIndexPagenation :items="powers" />
+                <Paginate :items="powers" />
             </template>
             <template v-else>
                 <p>登録がありません</p>
