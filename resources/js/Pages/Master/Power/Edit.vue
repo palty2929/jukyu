@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import { Inertia } from '@inertiajs/inertia'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 import { useToast } from 'vue-toastification'
@@ -63,7 +63,7 @@ const getBgs = () => {
 <template>
     <Head title="エリアマスタの作成" />
 
-    <MainColumn>
+    <Main>
         <template #title>エリアマスタの作成</template>
 
         <template #main>
@@ -163,5 +163,5 @@ const getBgs = () => {
                 </div>
             </form>
         </template>
-    </MainColumn>
+    </Main>
 </template>

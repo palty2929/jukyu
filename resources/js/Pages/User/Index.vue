@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import Table from '@/Components/Table.vue'
 import Paginate from '@/Components/Paginate.vue'
 import { ref, onMounted } from 'vue'
@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
     <Head title="ユーザー管理" />
-    <MainColumn>
+    <Main>
         <template #title>ユーザー管理</template>
         <template #main>
             <div class="mt-8 bg-base-100">
@@ -54,5 +54,5 @@ const props = defineProps({
                 <Paginate :items="users" />
             </div>
         </template>
-    </MainColumn>
+    </Main>
 </template>

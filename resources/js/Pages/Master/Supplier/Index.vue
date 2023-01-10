@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import Table from '@/Components/Table.vue'
 import Paginate from '@/Components/Paginate.vue'
 import { Inertia } from '@inertiajs/inertia'
@@ -23,7 +23,7 @@ function deleteItem(uuid) {
 
 <template>
     <Head title="PPSマスタ" />
-    <MainColumn>
+    <Main>
         <template #title>PPSマスタ</template>
         <template #action>
             <Link :href="route('supplier.create')" class="btn btn-primary no-animation">マスタの作成</Link>
@@ -31,6 +31,13 @@ function deleteItem(uuid) {
 
         <template #main>
             <template v-if="suppliers.data.length">
+                <div class="flex divide-x my-2 text-sm font-bold">
+                    <div class="pr-4">すべて</div>
+                    <div class="link link-primary link-hover px-4">公開済み</div>
+                    <div class="link link-primary link-hover px-4">下書き</div>
+                    <div class="link link-primary link-hover px-4">ゴミ箱</div>
+                </div>
+
                 <Table>
                     <template #header>
                         <th>PPSコード</th>
@@ -50,7 +57,11 @@ function deleteItem(uuid) {
                             <td>{{ supplier.end_on }}</td>
                             <td>{{ supplier.deleted_at }}</td>
                             <td>
-                                <Link :href="route('supplier.edit', supplier.uuid)" class="link link-primary no-underline">編集</Link>
+                                <Link
+                                    :href="route('supplier.edit', supplier.uuid)"
+                                    class="link link-primary no-underline"
+                                    >編集</Link
+                                >
                             </td>
                         </tr>
                     </template>
@@ -61,5 +72,5 @@ function deleteItem(uuid) {
                 <p>登録がありません</p>
             </template>
         </template>
-    </MainColumn>
+    </Main>
 </template>

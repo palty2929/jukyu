@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 import { useToast } from 'vue-toastification'
 const toast = useToast()
@@ -47,7 +47,7 @@ const areas = {
 <template>
     <Head title="BGマスタの作成" />
 
-    <MainColumn>
+    <Main>
         <template #title>BGマスタの作成</template>
 
         <template #main>
@@ -156,5 +156,5 @@ const areas = {
                 </div>
             </form>
         </template>
-    </MainColumn>
+    </Main>
 </template>

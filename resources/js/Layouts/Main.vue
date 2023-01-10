@@ -4,7 +4,7 @@ import Layout from '@/Layouts/Layout.vue'
 
 <template>
     <Layout>
-        <div class="py-4 px-4">
+        <div class="py-4 px-8">
             <div class="flex items-start justify-between">
                 <div class="text-3xl font-bold">
                     <slot name="title" />

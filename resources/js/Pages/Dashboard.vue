@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import { ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
@@ -21,7 +21,7 @@ const update = () => {
 
 <template>
     <Head title="ダッシュボード" />
-    <MainColumn>
+    <Main>
         <template #title>ダッシュボード</template>
         <template #action>
             <div class="flex gap-4">
@@ -44,5 +44,5 @@ const update = () => {
                 </tbody>
             </table>
         </template>
-    </MainColumn>
+    </Main>
 </template>

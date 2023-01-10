@@ -34,7 +34,7 @@ class SupplierController extends Controller
         $validate = $request->validate([
             "start_on" => ["date", "required"],
             "end_on" => ["date", "after:start_on", "nullable"],
-            "pps_code" => ["required", "integer", "digits:4", Rule::unique('suppliers', 'pps_code')->whereNull('deleted_at')],
+            "pps_code" => ["required", "integer", "digits:4", "unique:suppliers,pps_code"],
             "name" => ["max:30", "required"],
             "disp_name" => ["max:20", "required"],
             "uuid" => ["uuid", "required"],
@@ -51,8 +51,12 @@ class SupplierController extends Controller
         //
     }
 
-    public function edit(Supplier $supplier)
+    public function edit($id)
     {
+        $supplier = Supplier::withTrashed()
+            ->where('uuid' ,$id)
+            ->firstOrFail();
+
         return Inertia::render("Master/Supplier/Edit", [
             "supplier" => $supplier,
         ]);
@@ -74,9 +78,25 @@ class SupplierController extends Controller
         return redirect()->route("supplier.index");
     }
 
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
+        $supplier = Supplier::withTrashed()
+            ->where('uuid' ,$id)
+            ->firstOrFail();
+
         $supplier->delete();
-        return redirect()->route("supplier.index");
+
+        return redirect()->route('supplier.edit', $supplier->uuid);
+    }
+
+    public function restore($id)
+    {
+        $supplier = Supplier::withTrashed()
+            ->where('uuid' ,$id)
+            ->firstOrFail();
+
+        $supplier->restore();
+
+        return redirect()->route('supplier.edit', $supplier->uuid);
     }
 }

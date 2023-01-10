@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'can:master'], function () {
         Route::resource('supplier', SupplierController::class);
+        Route::get('supplier/{supplier}/restore', [SupplierController::class, 'restore'])->name('supplier.restore');
         Route::resource('area', AreaController::class);
         Route::resource('bg', BgController::class);
         Route::resource('power', PowerController::class);

@@ -1,5 +1,5 @@
 <script setup>
-import MainColumn from '@/Layouts/MainColumn.vue'
+import Main from '@/Layouts/Main.vue'
 import MasterIndexListItem from '@/Components/MasterIndexListItem.vue'
 import Paginate from '@/Components/Paginate.vue'
 import { computed } from 'vue'
@@ -49,7 +49,7 @@ const areaString = computed(() => (value) => {
 
 <template>
     <Head title="BGマスタ" />
-    <MainColumn>
+    <Main>
         <template #title>BGマスタ</template>
         <template #action>
             <Link :href="route('bg.create')" class="btn btn-primary no-animation">マスタの作成</Link>
@@ -78,5 +78,5 @@ const areaString = computed(() => (value) => {
                 <p>登録がありません</p>
             </template>
         </template>
-    </MainColumn>
+    </Main>
 </template>
